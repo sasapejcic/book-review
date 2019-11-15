@@ -18,13 +18,15 @@ def connect():
         # create a cursor
         cur = conn.cursor()
 
-        # execute a statement
+        # Dropin tables
         print('Droping existing tables...')
         cur.execute('DROP TABLE IF EXISTS reviews, users, books;')
 
         # Creating tables
         print('Creating tables...')
         cur.execute("CREATE TABLE IF NOT EXISTS books (isbn char(10) NOT NULL PRIMARY KEY, title varchar(100) NOT NULL, author varchar(40) NOT NULL, year integer NOT NULL);")
+        cur.execute("CREATE TABLE IF NOT EXISTS users (id serial NOT NULL UNIQUE PRIMARY KEY, username varchar(20) NOT NULL UNIQUE, password varchar(20) NOT NULL, display_name varchar(20));")
+        cur.execute("CREATE TABLE IF NOT EXISTS reviews (id serial NOT NULL UNIQUE PRIMARY KEY, review text NOT NULL, isbn char(10) NOT NULL REFERENCES books(isbn), id_user integer NOT NULL REFERENCES users(id));")
 
        # close the communication with the PostgreSQL
         cur.close()
