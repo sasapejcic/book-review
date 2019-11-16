@@ -1,3 +1,4 @@
+# This file is used to store database credentials
 host="ec2-79-125-126-205.eu-west-1.compute.amazonaws.com"
 database="d9eqc1kq3rl4pl"
 user="hjarwfeiklyxyb"

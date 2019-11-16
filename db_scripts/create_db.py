@@ -4,12 +4,17 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from connection import connection
 
+# Database URL using connection.py
 DB_URL = connection()[4]
+
+# Database URL using environment
 #DB_URL = os.getenv("DATABASE_URL")
 
+# Creating session
 engine = create_engine(DB_URL)
 db = scoped_session(sessionmaker(bind=engine))
 
+# Main function used to recreate the whole database
 def main():
     db.execute("DROP TABLE IF EXISTS reviews, users, books;")
     db.execute("CREATE TABLE IF NOT EXISTS books (isbn char(10) PRIMARY KEY, title varchar(100) NOT NULL, author varchar(40) NOT NULL, year smallint NOT NULL);")
