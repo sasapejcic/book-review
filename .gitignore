@@ -3,4 +3,5 @@ flask_session/
 __pycache__/
 db_scripts/__pycache__/
 db_scripts/create_db1.py
+db_scripts/insert_users.py
 example/
