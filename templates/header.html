@@ -1,5 +1,18 @@
-{% if is_auth %}
-Welcome {{ name }}
-{% else %}
-<a href="index.html"> Register / Login</a>
-{% endif %}
+<div class="row align-items-center">
+  <div class="col-sm">
+    <img src="static/images/logo.png" class="logo">
+  </div>
+  <div class="col-sm">
+    <h1>Book reviews</h1>
+  </div>
+  <div class="col-sm">
+    <nav>
+      {% if is_auth %}
+      Welcome {{ name }}
+      {% else %}
+      <a class="btn btn-primary btn-custom" href="register.html" role="button">Join</a>
+      <button type="button" class="btn btn-outline-primary btn-outline-custom">Log in</button>
+      {% endif %}
+    </nav>
+  </div>
+</div>
