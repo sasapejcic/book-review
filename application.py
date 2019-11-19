@@ -22,14 +22,6 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def index():
-    #session['logged_in'] = True
-    if session.get('logged_in'):
-        query = db.execute("SELECT display_name FROM users WHERE username='sasa' AND password='sasa';").fetchone()
-        session['name'] = query[0]
-
-    #session.clear()
-    #print(app.config)
-
     return render_template("index.html", is_auth=session.get('logged_in'), name=session.get('name'))
 
 @app.route("/logout.html")
@@ -43,13 +35,16 @@ def login_r():
     if not session.get('logged_in'):
         return render_template("login.html")
     else:
-        return index()
+        return redirect('/')
 
 @app.route('/login', methods=['POST'])
 def login():
-    if request.form['password'] == 'sasa' and request.form['username'] == 'sasa':
+    username = request.form['username']
+    password = request.form['password']
+    query = db.execute(f"SELECT display_name FROM users WHERE username='{username}' AND password='{password}';").fetchone()
+    if query:
+        session['name'] = query[0]
         session['logged_in'] = True
-        session['name'] = "Bruce Wayne"
         return redirect('/')
     else:
         flash('wrong password!')
