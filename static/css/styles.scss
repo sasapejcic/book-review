@@ -42,6 +42,15 @@ nav {
 	background-color: $color1;
 }
 
+.btn-outline-custom:not([disabled]):not(.disabled).active, .btn-outline-custom:not([disabled]):not(.disabled):active, .show>.btn-outline-custom.dropdown-toggle{
+	border-color: $color3;
+	background-color: $color3;
+	box-shadow: 0 0 0 0.2rem $color2;
+}
+.btn-outline-custom.focus, .btn-outline-custom:focus {
+	box-shadow: 0 0 0 0.2rem $color2;
+}
+
 .btn-custom {
 	color: $background-color;
 	border-color: $color2;
@@ -52,6 +61,14 @@ nav {
 	color: $background-color;
 	border-color: $color1;
 	background-color: $color1;
+}
+
+.btn-custom:not([disabled]):not(.disabled).active, .btn-custom:not([disabled]):not(.disabled):active, .show>.btn-custom.dropdown-toggle{
+	border-color: $color3;
+	background-color: $color3;
+}
+.btn-custom:not([disabled]):not(.disabled).active:focus, .btn-custom:not([disabled]):not(.disabled):active:focus, .show>.btn-custom.dropdown-toggle:focus {
+	box-shadow: 0 0 0 0.2rem $color2;
 }
 
 /*

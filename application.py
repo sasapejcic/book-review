@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session, render_template
+from flask import Flask, session, render_template, request, flash, redirect
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -27,7 +27,30 @@ def index():
         query = db.execute("SELECT display_name FROM users WHERE username='sasa' AND password='sasa';").fetchone()
         session['name'] = query[0]
 
-    session.clear()
+    #session.clear()
     #print(app.config)
 
     return render_template("index.html", is_auth=session.get('logged_in'), name=session.get('name'))
+
+@app.route("/logout.html")
+def logout():
+    session['logged_in'] = False
+    session['name'] = None
+    return redirect('/')
+
+@app.route('/login.html')
+def login_r():
+    if not session.get('logged_in'):
+        return render_template("login.html")
+    else:
+        return index()
+
+@app.route('/login', methods=['POST'])
+def login():
+    if request.form['password'] == 'sasa' and request.form['username'] == 'sasa':
+        session['logged_in'] = True
+        session['name'] = "Bruce Wayne"
+        return redirect('/')
+    else:
+        flash('wrong password!')
+        return login_r()

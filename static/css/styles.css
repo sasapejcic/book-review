@@ -13,10 +13,6 @@ body {
   margin: 0 auto;
 }
 
-.row {
-  /*vertical-align:middle;*/
-}
-
 .logo {
   float: left;
   padding: 10px 0;
@@ -39,6 +35,16 @@ nav {
   background-color: #3c2f2f;
 }
 
+.btn-outline-custom:not([disabled]):not(.disabled).active, .btn-outline-custom:not([disabled]):not(.disabled):active, .show > .btn-outline-custom.dropdown-toggle {
+  border-color: #854442;
+  background-color: #854442;
+  box-shadow: 0 0 0 0.2rem #4b3832;
+}
+
+.btn-outline-custom.focus, .btn-outline-custom:focus {
+  box-shadow: 0 0 0 0.2rem #4b3832;
+}
+
 .btn-custom {
   color: #fff4e6;
   border-color: #4b3832;
@@ -49,6 +55,15 @@ nav {
   color: #fff4e6;
   border-color: #3c2f2f;
   background-color: #3c2f2f;
+}
+
+.btn-custom:not([disabled]):not(.disabled).active, .btn-custom:not([disabled]):not(.disabled):active, .show > .btn-custom.dropdown-toggle {
+  border-color: #854442;
+  background-color: #854442;
+}
+
+.btn-custom:not([disabled]):not(.disabled).active:focus, .btn-custom:not([disabled]):not(.disabled):active:focus, .show > .btn-custom.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem #4b3832;
 }
 
 /*

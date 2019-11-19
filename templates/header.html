@@ -3,15 +3,16 @@
     <img src="static/images/logo.png" class="logo">
   </div>
   <div class="col-sm">
-    <h1>Book reviews</h1>
+    <h1>Books reviews</h1>
   </div>
   <div class="col-sm">
     <nav>
       {% if is_auth %}
-      Welcome {{ name }}
+      <p>Welcome {{ name }}</p>
+      <a class="btn btn-outline-primary btn-outline-custom" href="logout.html" role="button">Log off</a>
       {% else %}
       <a class="btn btn-primary btn-custom" href="register.html" role="button">Join</a>
-      <button type="button" class="btn btn-outline-primary btn-outline-custom">Log in</button>
+      <a class="btn btn-outline-primary btn-outline-custom" href="/login.html" role="button">Log in</a>
       {% endif %}
     </nav>
   </div>
