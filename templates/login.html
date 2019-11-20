@@ -5,9 +5,21 @@ Books Reviews
 {% endblock %}
 
 {% block content %}
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Login Form -->
+    <form action="/login" method="POST">
+      <input type="username" id="username" class="fadeIn second" name="username" placeholder="username">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
 <form action="/login" method="POST">
   <input type="username" name="username" placeholder="Username">
   <input type="password" name="password" placeholder="Password">
   <input type="submit" value="Log in">
 </form>
-{% endblock %}
