@@ -66,6 +66,14 @@ nav {
   box-shadow: 0 0 0 0.2rem #4b3832;
 }
 
+.msg {
+  font-size: 18px;
+}
+
+h1 {
+  font-size: 36px;
+}
+
 /* LOGIN STYLING */
 .wrapper {
   display: flex;

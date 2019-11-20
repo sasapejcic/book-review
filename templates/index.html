@@ -3,3 +3,11 @@
 {% block title %}
 Books Reviews
 {% endblock %}
+
+{% block content %}
+{% if is_auth %}
+<div class="msg">
+  {{ message }}
+</div>
+{% endif %}
+{% endblock %}

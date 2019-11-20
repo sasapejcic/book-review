@@ -22,7 +22,8 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def index():
-    return render_template("index.html", is_auth=session.get('logged_in'), name=session.get('name'))
+    print(session.get('logged_in'))
+    return render_template("index.html", is_auth=session.get('logged_in'), message=(f"Welcome, { session['name'] }!"))
 
 @app.route("/logout.html")
 def logout():
@@ -45,7 +46,26 @@ def login():
     if query:
         session['name'] = query[0]
         session['logged_in'] = True
-        return redirect('/')
+        return render_template("index.html", is_auth=session.get('logged_in'), message=(f"Welcome, { session['name'] }!"))
     else:
-        flash('wrong password!')
-        return login_r()
+        return render_template("index.html", message='Wrong password!')
+
+@app.route('/register.html')
+def register_r():
+    if not session.get('logged_in'):
+        return render_template("register.html")
+    else:
+        return redirect('/')
+
+@app.route('/register', methods=['POST'])
+def register():
+    username = request.form['username']
+    password = request.form['password']
+    display_name = request.form['display']
+    query = db.execute(f"SELECT display_name FROM users WHERE username='{username}';").fetchone()
+    if query:
+        return render_template("index.html", message='Username already taken!')
+    else:
+        query = db.execute(f"INSERT INTO users (username, password, display_name) VALUES ('{username}', '{password}', '{display_name}')")
+        db.commit()
+        return render_template("index.html", message='Thanks for registering! Please Log in')
