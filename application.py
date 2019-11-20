@@ -22,8 +22,7 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def index():
-    print(session.get('logged_in'))
-    return render_template("index.html", is_auth=session.get('logged_in'), message=(f"Welcome, { session['name'] }!"))
+    return render_template("index.html", is_auth=session.get('logged_in'), show=session.get('logged_in'), message=(f"Welcome, { session['name'] }!"))
 
 @app.route("/logout.html")
 def logout():
@@ -46,9 +45,9 @@ def login():
     if query:
         session['name'] = query[0]
         session['logged_in'] = True
-        return render_template("index.html", is_auth=session.get('logged_in'), message=(f"Welcome, { session['name'] }!"))
+        return render_template("index.html", is_auth=session.get('logged_in'), show=session.get('logged_in'), message=(f"Welcome, { session['name'] }!"))
     else:
-        return render_template("index.html", message='Wrong password!')
+        return render_template("index.html", show=True, message='Wrong password!')
 
 @app.route('/register.html')
 def register_r():
@@ -64,8 +63,8 @@ def register():
     display_name = request.form['display']
     query = db.execute(f"SELECT display_name FROM users WHERE username='{username}';").fetchone()
     if query:
-        return render_template("index.html", message='Username already taken!')
+        return render_template("index.html", show=True, message='Username already taken!')
     else:
         query = db.execute(f"INSERT INTO users (username, password, display_name) VALUES ('{username}', '{password}', '{display_name}')")
         db.commit()
-        return render_template("index.html", message='Thanks for registering! Please Log in')
+        return render_template("index.html", show=True, message='Thanks for registering! Please Log in')
