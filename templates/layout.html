@@ -5,7 +5,7 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <!-- Login form -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="static/css/styles.css">
@@ -20,6 +20,12 @@
     <content>
       <div class="container">
         {% block content %}{% endblock %}
+      </div>
+      <div class="container">
+        {% block search %}{% endblock %}
+      </div>
+      <div class="container">
+        {% block results %}{% endblock %}
       </div>
     </content>
     <footer>

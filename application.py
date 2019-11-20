@@ -68,3 +68,21 @@ def register():
         query = db.execute(f"INSERT INTO users (username, password, display_name) VALUES ('{username}', '{password}', '{display_name}')")
         db.commit()
         return render_template("index.html", show=True, message='Thanks for registering! Please Log in')
+
+@app.route('/search', methods=['POST'])
+def search():
+    criteria = request.form['criteria']
+    txt = request.form['txt']
+    if criteria == "Search by":
+        return render_template("index.html", is_auth=session.get('logged_in'), show=session.get('logged_in'), message=(f"Wrong input!."))
+    else:
+        query = db.execute(f"SELECT * FROM books WHERE {criteria}='{txt}';").fetchall()
+        return render_template("index.html", is_auth=session.get('logged_in'), show=session.get('logged_in'), results=query)
+
+
+    # if query:
+    #     session['name'] = query[0]
+    #     session['logged_in'] = True
+    #     return render_template("index.html", is_auth=session.get('logged_in'), show=session.get('logged_in'), message=(f"Welcome, { session['name'] }!"))
+    # else:
+    #     return render_template("index.html", show=True, message='Wrong password!')

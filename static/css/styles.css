@@ -305,4 +305,42 @@ input[type=username]:placeholder, input[type=password]:placeholder {
   outline: none;
 }
 
+/*search box css start here*/
+.search-slt {
+  display: block;
+  width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #55595c;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #3c2f2f;
+  height: calc(3rem + 2px) !important;
+  border-radius: 0;
+}
+
+.wrn-btn {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: capitalize;
+  height: calc(3rem + 2px) !important;
+  border-radius: 0;
+  background-color: #854442;
+  border-color: #854442;
+  color: #fff4e6;
+}
+
+.wrn-btn:hover {
+  background-color: #3c2f2f;
+  border-color: #3c2f2f;
+  color: #fff4e6;
+}
+
+.btn-danger:not([disabled]):not(.disabled).active, .btn-danger:not([disabled]):not(.disabled):active, .show > .btn-danger.dropdown-toggle {
+  background-color: #be9b7b;
+  border-color: #3c2f2f;
+  color: #fff4e6;
+}
+
 /*# sourceMappingURL=styles.css.map */
