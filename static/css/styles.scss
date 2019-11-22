@@ -342,3 +342,7 @@ input[type=username]:placeholder, input[type=password]:placeholder {
 		border-color: $color1;
 		color: $background-color;
 }
+.form-control:focus {
+	border-color: $color2;
+	box-shadow: 0 0 0 0.2rem $background-color;
+}

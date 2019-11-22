@@ -343,4 +343,9 @@ input[type=username]:placeholder, input[type=password]:placeholder {
   color: #fff4e6;
 }
 
+.form-control:focus {
+  border-color: #4b3832;
+  box-shadow: 0 0 0 0.2rem #fff4e6;
+}
+
 /*# sourceMappingURL=styles.css.map */
