@@ -1,19 +1,19 @@
 {% extends "layout.html" %}
 
-{% block title %}
-Books Reviews
-{% endblock %}
-
 {% block content %}
+
+<div class="msg">
+  {{ message }}
+</div>
+
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Login Form -->
-    <form action="/login" method="POST">
+    <form action="/login_check" method="POST">
       <input type="username" id="username" class="fadeIn second" name="username" placeholder="username">
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
-
   </div>
 </div>
 

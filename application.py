@@ -28,40 +28,42 @@ def index():
         message=(f"Please Log in to search the database.")
     return render_template("index.html", message=message)
 
-@app.route("/logout.html")
+@app.route("/logout")
 def logout():
     session['logged_in'] = False
     session['name'] = None
     return redirect('/')
 
-@app.route('/login.html')
-def login_r():
+@app.route('/login')
+def login():
     if not session.get('logged_in'):
         return render_template("login.html")
     else:
         return redirect('/')
 
-@app.route('/login', methods=['POST'])
-def login():
+@app.route('/login_check', methods=['POST'])
+def login_check():
     username = request.form['username']
     password = request.form['password']
     query = db.execute(f"SELECT display_name FROM users WHERE username='{username}' AND password='{password}';").fetchone()
     if query:
         session['name'] = query[0]
         session['logged_in'] = True
-        return render_template("index.html", is_auth=session.get('logged_in'), show=session.get('logged_in'), message=(f"Welcome, { session['name'] }!"))
+        message=f"Welcome, { session['name'] }!"
+        return render_template("index.html", message=message)
     else:
-        return render_template("index.html", show=True, message='Wrong password!')
+        message='Wrong password!'
+        return render_template("login.html", message=message)
 
-@app.route('/register.html')
-def register_r():
+@app.route('/register')
+def register():
     if not session.get('logged_in'):
         return render_template("register.html")
     else:
-        return redirect('/')
+        return redirect('/register_check')
 
-@app.route('/register', methods=['POST'])
-def register():
+@app.route('/register_check', methods=['POST'])
+def register_check():
     username = request.form['username']
     password = request.form['password']
     display_name = request.form['display']
