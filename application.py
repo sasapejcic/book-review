@@ -84,16 +84,8 @@ def search():
     if criteria == "Search by":
         return render_template("index.html", is_auth=session.get('logged_in'), message=(f"Wrong input!."))
     else:
-        query = db.execute(f"SELECT * FROM books WHERE {criteria}='{txt}';").fetchall()
-        isbn = query[0]
-        title = query[1]
-        author = query[2]
-        return render_template("index.html", is_auth=session.get('logged_in'), results=query)
-
-
-    # if query:
-    #     session['name'] = query[0]
-    #     session['logged_in'] = True
-    #     return render_template("index.html", is_auth=session.get('logged_in'), show=session.get('logged_in'), message=(f"Welcome, { session['name'] }!"))
-    # else:
-    #     return render_template("index.html", show=True, message='Wrong password!')
+        results=[]
+        query = db.execute(f"SELECT * FROM books WHERE {criteria} LIKE '%{txt}%';").fetchall()
+        for x in query:
+            results.append(x[1])
+        return render_template("index.html", is_auth=session.get('logged_in'), results=results)
