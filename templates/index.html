@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block search %}
-{% if show %}
+{% if is_auth %}
 <form action="/search" method="post">
   <div class="row">
     <div class="col-lg-12">

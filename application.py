@@ -26,13 +26,13 @@ def index():
         message=(f"Welcome, { session['name'] }!")
     else:
         message=(f"Please Log in to search the database.")
-    return render_template("index.html", message=message)
+    return render_template("index.html", message=message, is_auth=session.get('logged_in'))
 
 @app.route("/logout")
 def logout():
     session['logged_in'] = False
     session['name'] = None
-    return redirect('/')
+    return render_template("index.html", message="Come back soon", is_auth=session.get('logged_in'))
 
 @app.route('/login')
 def login():
@@ -50,7 +50,7 @@ def login_check():
         session['name'] = query[0]
         session['logged_in'] = True
         message=f"Welcome, { session['name'] }!"
-        return render_template("index.html", message=message)
+        return redirect('/')
     else:
         message='Wrong password!'
         return render_template("login.html", message=message)
@@ -75,20 +75,20 @@ def register_check():
         query = db.execute(f"INSERT INTO users (username, password, display_name) VALUES ('{username}', '{password}', '{display_name}')")
         db.commit()
         message='Thanks for registering! Please Log in'
-        return render_template("index.html", message='Thanks for registering! Please Log in')
+        return render_template("index.html", message='Thanks for registering! Please Log in', is_auth=False)
 
 @app.route('/search', methods=['POST'])
 def search():
     criteria = request.form['criteria']
     txt = request.form['txt']
     if criteria == "Search by":
-        return render_template("index.html", is_auth=session.get('logged_in'), show=session.get('logged_in'), message=(f"Wrong input!."))
+        return render_template("index.html", is_auth=session.get('logged_in'), message=(f"Wrong input!."))
     else:
         query = db.execute(f"SELECT * FROM books WHERE {criteria}='{txt}';").fetchall()
         isbn = query[0]
         title = query[1]
         author = query[2]
-        return render_template("index.html", is_auth=session.get('logged_in'), show=session.get('logged_in'), results=query)
+        return render_template("index.html", is_auth=session.get('logged_in'), results=query)
 
 
     # if query:
