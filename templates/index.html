@@ -35,10 +35,10 @@
 {% endblock %}
 
 {% block results %}
-<div class="msg">
-  {{ results }}
+<div class="results">
+  {% for result in results %}
+  <p class="result"><a href="/book/{{ result }}"> {{ result }}</a></p>
+  {% endfor %}
 </div>
-
 {% endblock %}
-
 {% endif %}

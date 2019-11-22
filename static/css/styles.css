@@ -348,4 +348,17 @@ input[type=username]:placeholder, input[type=password]:placeholder {
   box-shadow: 0 0 0 0.2rem #fff4e6;
 }
 
+/*results styling start here*/
+.results {
+  margin-top: 80px;
+}
+
+.result {
+  align-self: left;
+  font-size: 24px;
+}
+.result a {
+  color: #3c2f2f;
+}
+
 /*# sourceMappingURL=styles.css.map */

@@ -85,7 +85,7 @@ def search():
         return render_template("index.html", is_auth=session.get('logged_in'), message=(f"Wrong input!."))
     else:
         results=[]
-        query = db.execute(f"SELECT * FROM books WHERE {criteria} LIKE '%{txt}%';").fetchall()
+        query = db.execute(f"SELECT * FROM books WHERE {criteria} LIKE '%{txt}%' ORDER BY title;").fetchall()
         for x in query:
             results.append(x[1])
         return render_template("index.html", is_auth=session.get('logged_in'), results=results)
