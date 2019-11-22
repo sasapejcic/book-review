@@ -22,7 +22,11 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def index():
-    return render_template("index.html", is_auth=session.get('logged_in'), show=session.get('logged_in'), message=(f"Welcome, { session['name'] }!"))
+    if session.get('logged_in'):
+        message=(f"Welcome, { session['name'] }!")
+    else:
+        message=(f"Please Log in to search the database.")
+    return render_template("index.html", message=message)
 
 @app.route("/logout.html")
 def logout():
@@ -63,11 +67,13 @@ def register():
     display_name = request.form['display']
     query = db.execute(f"SELECT display_name FROM users WHERE username='{username}';").fetchone()
     if query:
-        return render_template("index.html", show=True, message='Username already taken!')
+        message='Username already taken!'
+        return render_template("register.html", message='Username already exists! Please choose different one')
     else:
         query = db.execute(f"INSERT INTO users (username, password, display_name) VALUES ('{username}', '{password}', '{display_name}')")
         db.commit()
-        return render_template("index.html", show=True, message='Thanks for registering! Please Log in')
+        message='Thanks for registering! Please Log in'
+        return render_template("index.html", message='Thanks for registering! Please Log in')
 
 @app.route('/search', methods=['POST'])
 def search():
