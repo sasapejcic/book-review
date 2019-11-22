@@ -77,6 +77,9 @@ def search():
         return render_template("index.html", is_auth=session.get('logged_in'), show=session.get('logged_in'), message=(f"Wrong input!."))
     else:
         query = db.execute(f"SELECT * FROM books WHERE {criteria}='{txt}';").fetchall()
+        isbn = query[0]
+        title = query[1]
+        author = query[2]
         return render_template("index.html", is_auth=session.get('logged_in'), show=session.get('logged_in'), results=query)
 
 
