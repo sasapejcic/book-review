@@ -6,9 +6,9 @@
 </div>
 {% endblock %}
 
-{% if is_auth %}
-{% block search %}
 
+{% block search %}
+{% if is_auth %}
 <form action="/search" method="post">
   <div class="row">
     <div class="col-lg-12">
@@ -31,14 +31,15 @@
     </div>
   </div>
 </form>
-
+{% endif %}
 {% endblock %}
 
 {% block results %}
+{% if is_auth %}
 <div class="results">
   {% for result in results %}
   <p class="result"><a href="/book/{{ result }}"> {{ result }}</a></p>
   {% endfor %}
 </div>
-{% endblock %}
 {% endif %}
+{% endblock %}
