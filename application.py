@@ -115,17 +115,20 @@ def rate():
         return redirect(url)
     else:
         return render_template("rate.html")
-#     if not session.get('logged_in'):
-#         return render_template("register.html")
-#     else:
-#         return redirect('/register_check')
-#
-# @app.route('/register_check', methods=['POST'])
-# def register_check():
-#     username = request.form['username']
-#     password = request.form['password']
-#     display_name = request.form['display']
-#     query = db.execute(f"SELECT display_name FROM users WHERE username='{username}';").fetchone()
+
+
+@app.route('/rate_submit', methods=['POST'])
+def rate_submit():
+    review = request.form['review']
+    isbn = str(session.get('isbn'))
+    id_user = str(session.get('id'))
+    rating = request.form['rating']
+    print(review,isbn,id_user,rating)
+    #query = db.execute(f"INSERT INTO users (username, password, display_name) VALUES ('{username}', '{password}', '{display_name}')")
+    #db.commit()
+    url = f"/book/{isbn}"
+    return redirect(url)
+    #query = db.execute(f"SELECT display_name FROM users WHERE username='{username}';").fetchone()
 #     if query:
 #         message='Username already taken!'
 #         return render_template("register.html", message='Username already exists! Please choose different one')
