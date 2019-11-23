@@ -365,7 +365,16 @@ input[type=username]:placeholder, input[type=password]:placeholder {
 
 /*Book styling start here*/
 .book {
-  font-size: 32px;
+  font-size: 24px;
+}
+.book h1 {
+  font-size: 36px;
+}
+.book h2 {
+  font-size: 24px;
+}
+.book h4 {
+  font-size: 16px;
 }
 
 /*# sourceMappingURL=styles.css.map */

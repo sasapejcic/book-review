@@ -364,5 +364,14 @@ input[type=username]:placeholder, input[type=password]:placeholder {
 /*Book styling start here*/
 
 .book {
-	font-size: 32px;
+	font-size: 24px;
+	h1 {
+		font-size: 36px;
+	}
+	h2 {
+		font-size: 24px;
+	}
+	h4 {
+		font-size: 16px;
+	}
 }
