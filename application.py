@@ -45,9 +45,10 @@ def login():
 def login_check():
     username = request.form['username']
     password = request.form['password']
-    query = db.execute(f"SELECT display_name FROM users WHERE username='{username}' AND password='{password}';").fetchone()
+    query = db.execute(f"SELECT * FROM users WHERE username='{username}' AND password='{password}';").fetchone()
     if query:
-        session['name'] = query[0]
+        session['name'] = query[3]
+        session['id'] = query[0]
         session['logged_in'] = True
         message=f"Welcome, { session['name'] }!"
         return redirect('/')
@@ -85,14 +86,10 @@ def search():
         return render_template("index.html", is_auth=session.get('logged_in'), message=(f"Wrong input!."))
     else:
         query = db.execute(f"SELECT * FROM books WHERE {criteria} LIKE '%{txt}%' ORDER BY title;").fetchall()
-        # results=[]
-        # for x in query:
-        #     results.append(x[1])
         if len(query) == 0:
             message = "No results found. Please try again."
             return render_template("index.html", is_auth=session.get('logged_in'), message=message)
         else:
-            print(query)
             return render_template("index.html", is_auth=session.get('logged_in'), results=query)
 
 @app.route("/book/<isbn>")
@@ -101,7 +98,39 @@ def book(isbn):
     book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
     if book is None:
         return render_template("/index.html", is_auth=session.get('logged_in'), message="No such book. Please try again using search box.")
-
+    # Setting session variable
+    session['isbn'] = isbn
     # Get all reviews.
     reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": isbn}).fetchall()
     return render_template("book.html", is_auth=session.get('logged_in'), results=book, reviews=reviews)
+
+@app.route('/rate')
+def rate():
+    user = str(session.get('id'))
+    isbn = str(session.get('isbn'))
+    query = db.execute("SELECT * FROM reviews WHERE isbn = :isbn AND id_user = :user", {"isbn": isbn, "user": user}).fetchall()
+    if query:
+        message = "You already rated this book"
+        url = f"/book/{isbn}"
+        return redirect(url)
+    else:
+        return render_template("rate.html")
+#     if not session.get('logged_in'):
+#         return render_template("register.html")
+#     else:
+#         return redirect('/register_check')
+#
+# @app.route('/register_check', methods=['POST'])
+# def register_check():
+#     username = request.form['username']
+#     password = request.form['password']
+#     display_name = request.form['display']
+#     query = db.execute(f"SELECT display_name FROM users WHERE username='{username}';").fetchone()
+#     if query:
+#         message='Username already taken!'
+#         return render_template("register.html", message='Username already exists! Please choose different one')
+#     else:
+#         query = db.execute(f"INSERT INTO users (username, password, display_name) VALUES ('{username}', '{password}', '{display_name}')")
+#         db.commit()
+#         message='Thanks for registering! Please Log in'
+#         return render_template("index.html", message='Thanks for registering! Please Log in', is_auth=False)
