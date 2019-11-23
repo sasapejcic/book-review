@@ -1,11 +1,10 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
+{% if not is_auth %}
 <div class="msg">
   {{ message }}
 </div>
-
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Login Form -->
@@ -16,5 +15,5 @@
     </form>
   </div>
 </div>
-
+{% endif %}
 {% endblock %}
