@@ -36,10 +36,17 @@
 
 {% block results %}
 {% if is_auth %}
-<div class="results">
-  {% for result in results %}
-  <p class="result"><a href="/book/{{ result }}"> {{ result }}</a></p>
+{% if results %}
+<p class="hdg">Your query returned following books</p>
+{% endif %}
+<ul>
+  {% for book in results %}
+  <li class="result">
+    <a href="{{ url_for('book', isbn=book.isbn) }}">
+      {{ book.author }} - {{ book.title }}
+    </a>
+  </li>
   {% endfor %}
-</div>
+</ul>
 {% endif %}
 {% endblock %}

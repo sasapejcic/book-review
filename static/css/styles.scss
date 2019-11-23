@@ -348,11 +348,14 @@ input[type=username]:placeholder, input[type=password]:placeholder {
 }
 
 /*results styling start here*/
-.results {
-  margin-top: 80px;
+.hdg {
+	margin-top: 40px;
+	margin-bottom: 40px;
+	font-size: 24px;
 }
 .result {
-  font-size: 24px;
+  font-size: 18px;
+	list-style-type: none;
 	a {
 		color: $color1;
 	}

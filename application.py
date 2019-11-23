@@ -84,12 +84,27 @@ def search():
     if criteria == "Search by":
         return render_template("index.html", is_auth=session.get('logged_in'), message=(f"Wrong input!."))
     else:
-        results=[]
         query = db.execute(f"SELECT * FROM books WHERE {criteria} LIKE '%{txt}%' ORDER BY title;").fetchall()
-        for x in query:
-            results.append(x[1])
-        if len(results) == 0:
+        # results=[]
+        # for x in query:
+        #     results.append(x[1])
+        if len(query) == 0:
             message = "No results found. Please try again."
             return render_template("index.html", is_auth=session.get('logged_in'), message=message)
         else:
-            return render_template("index.html", is_auth=session.get('logged_in'), results=results)
+            print(query)
+            return render_template("index.html", is_auth=session.get('logged_in'), results=query)
+
+@app.route("/book/<isbn>")
+def book(isbn):
+    """Lists details about a book."""
+    render_template("book.html")
+    # Make sure flight exists.
+    # flight = db.execute("SELECT * FROM flights WHERE id = :id", {"id": flight_id}).fetchone()
+    # if flight is None:
+    #     return render_template("error.html", message="No such flight.")
+    #
+    # # Get all passengers.
+    # passengers = db.execute("SELECT name FROM passengers WHERE flight_id = :flight_id",
+    #                         {"flight_id": flight_id}).fetchall()
+    # return render_template("flight.html", flight=flight, passengers=passengers)

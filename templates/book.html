@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+Pozdrav
+{% block results %}
+{% if is_auth %}
+<ul>
+  <li>isbn: {{ results.isbn }}</li>
+  <li>author: {{ results.author }}</li>
+  <li>title: {{ results.title}}</li>
+  <li>year: {{ results.year}}</li>
+</ul>
+{% endif %}
+{% endblock %}
