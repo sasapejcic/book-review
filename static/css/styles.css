@@ -363,4 +363,9 @@ input[type=username]:placeholder, input[type=password]:placeholder {
   color: #3c2f2f;
 }
 
+/*Book styling start here*/
+.book {
+  font-size: 32px;
+}
+
 /*# sourceMappingURL=styles.css.map */

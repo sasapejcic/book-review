@@ -97,14 +97,12 @@ def search():
 
 @app.route("/book/<isbn>")
 def book(isbn):
-    """Lists details about a book."""
-    render_template("book.html")
-    # Make sure flight exists.
-    # flight = db.execute("SELECT * FROM flights WHERE id = :id", {"id": flight_id}).fetchone()
-    # if flight is None:
-    #     return render_template("error.html", message="No such flight.")
-    #
-    # # Get all passengers.
+    # Make sure book exists.
+    book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
+    if book is None:
+        return render_template("/index.html", is_auth=session.get('logged_in'), message="No such book. Please try again using search box.")
+
+    # Get all passengers.
     # passengers = db.execute("SELECT name FROM passengers WHERE flight_id = :flight_id",
     #                         {"flight_id": flight_id}).fetchall()
-    # return render_template("flight.html", flight=flight, passengers=passengers)
+    return render_template("book.html", is_auth=session.get('logged_in'), results=book)
