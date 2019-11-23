@@ -112,7 +112,8 @@ def rate():
     if query:
         message = "You already rated this book"
         url = f"/book/{isbn}"
-        return redirect(url)
+        #return redirect(url)
+        return render_template("book.html", is_auth=session.get('logged_in'), message=message)
     else:
         return render_template("rate.html")
 
@@ -124,8 +125,8 @@ def rate_submit():
     id_user = str(session.get('id'))
     rating = request.form['rating']
     print(review,isbn,id_user,rating)
-    #query = db.execute(f"INSERT INTO users (username, password, display_name) VALUES ('{username}', '{password}', '{display_name}')")
-    #db.commit()
+    query = db.execute(f"INSERT INTO reviews (review, isbn, id_user, rating) VALUES ('{review}', '{isbn}', '{id_user}', '{rating}' )")
+    db.commit()
     url = f"/book/{isbn}"
     return redirect(url)
     #query = db.execute(f"SELECT display_name FROM users WHERE username='{username}';").fetchone()
