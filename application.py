@@ -102,7 +102,6 @@ def book(isbn):
     if book is None:
         return render_template("/index.html", is_auth=session.get('logged_in'), message="No such book. Please try again using search box.")
 
-    # Get all passengers.
-    # passengers = db.execute("SELECT name FROM passengers WHERE flight_id = :flight_id",
-    #                         {"flight_id": flight_id}).fetchall()
-    return render_template("book.html", is_auth=session.get('logged_in'), results=book)
+    # Get all reviews.
+    reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": isbn}).fetchall()
+    return render_template("book.html", is_auth=session.get('logged_in'), results=book, reviews=reviews)

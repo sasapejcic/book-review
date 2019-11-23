@@ -3,10 +3,13 @@
 {% block results %}
 {% if is_auth %}
 <div class="book">
-  <p>ISBN: {{ results.isbn }}</p>
   <p>Author: {{ results.author }}</p>
   <p>Title: {{ results.title}}</p>
   <p>Release year: {{ results.year}}</p>
+  <p>ISBN: {{ results.isbn }}</p>
+</div>
+<div class="review">
+  {{ reviews }}
 </div>
 {% endif %}
 {% endblock %}
