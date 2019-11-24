@@ -32,24 +32,26 @@ nav {
 }
 
 .btn-outline-custom {
-  color: #4b3832;
-  border-color: #4b3832;
+  color: #854442;
+  border-color: #854442;
 }
 
 .btn-outline-custom:hover {
   color: #fff4e6;
-  border-color: #3c2f2f;
-  background-color: #3c2f2f;
+  border-color: #854442;
+  background-color: #854442;
 }
 
 .btn-outline-custom:not([disabled]):not(.disabled).active, .btn-outline-custom:not([disabled]):not(.disabled):active, .show > .btn-outline-custom.dropdown-toggle {
   border-color: #854442;
   background-color: #854442;
-  box-shadow: 0 0 0 0.2rem #4b3832;
+  box-shadow: 0 0 0 0.2rem #854442;
 }
 
 .btn-outline-custom.focus, .btn-outline-custom:focus {
-  box-shadow: 0 0 0 0.2rem #4b3832;
+  border-color: #854442;
+  background-color: #854442;
+  box-shadow: 0 0 0 0.2rem #854442;
 }
 
 .btn-custom {
@@ -60,8 +62,8 @@ nav {
 
 .btn-custom:hover {
   color: #fff4e6;
-  border-color: #3c2f2f;
-  background-color: #3c2f2f;
+  border-color: #854442;
+  background-color: #854442;
 }
 
 .btn-custom:not([disabled]):not(.disabled).active, .btn-custom:not([disabled]):not(.disabled):active, .show > .btn-custom.dropdown-toggle {
@@ -70,7 +72,9 @@ nav {
 }
 
 .btn-custom:not([disabled]):not(.disabled).active:focus, .btn-custom:not([disabled]):not(.disabled):active:focus, .show > .btn-custom.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem #4b3832;
+  box-shadow: 0 0 0 0.2rem #854442;
+  border-color: #854442;
+  background-color: #854442;
 }
 
 .msg {
@@ -327,6 +331,7 @@ input[type=username]:placeholder, input[type=password]:placeholder {
 }
 
 .wrn-btn {
+  margin: 10px;
   width: 100%;
   font-size: 16px;
   font-weight: 400;

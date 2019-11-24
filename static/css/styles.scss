@@ -37,23 +37,25 @@ nav {
 }
 
 .btn-outline-custom {
-	color:$color2;
-	border-color: $color2;
+	color:$color3;
+	border-color: $color3;
 }
 
 .btn-outline-custom:hover {
 	color: $background-color;
-	border-color: $color1;
-	background-color: $color1;
+	border-color: $color3;
+	background-color: $color3;
 }
 
 .btn-outline-custom:not([disabled]):not(.disabled).active, .btn-outline-custom:not([disabled]):not(.disabled):active, .show>.btn-outline-custom.dropdown-toggle{
 	border-color: $color3;
 	background-color: $color3;
-	box-shadow: 0 0 0 0.2rem $color2;
+	box-shadow: 0 0 0 0.2rem $color3;
 }
 .btn-outline-custom.focus, .btn-outline-custom:focus {
-	box-shadow: 0 0 0 0.2rem $color2;
+	border-color: $color3;
+	background-color: $color3;
+	box-shadow: 0 0 0 0.2rem $color3;
 }
 
 .btn-custom {
@@ -64,8 +66,8 @@ nav {
 
 .btn-custom:hover {
 	color: $background-color;
-	border-color: $color1;
-	background-color: $color1;
+	border-color: $color3;
+	background-color: $color3;
 }
 
 .btn-custom:not([disabled]):not(.disabled).active, .btn-custom:not([disabled]):not(.disabled):active, .show>.btn-custom.dropdown-toggle{
@@ -73,7 +75,9 @@ nav {
 	background-color: $color3;
 }
 .btn-custom:not([disabled]):not(.disabled).active:focus, .btn-custom:not([disabled]):not(.disabled):active:focus, .show>.btn-custom.dropdown-toggle:focus {
-	box-shadow: 0 0 0 0.2rem $color2;
+	box-shadow: 0 0 0 0.2rem $color3;
+	border-color: $color3;
+	background-color: $color3;
 }
 
 .msg {
@@ -325,6 +329,7 @@ input[type=username]:placeholder, input[type=password]:placeholder {
     border-radius:0;
 }
 .wrn-btn{
+		margin: 10px;
     width: 100%;
     font-size: 16px;
     font-weight: 400;
