@@ -104,10 +104,9 @@ def book(isbn):
     session['isbn'] = isbn
     # Get all reviews.
     reviews = db.execute("SELECT reviews.rating, reviews.review, users.display_name FROM reviews JOIN users ON reviews.id_user=users.id WHERE isbn = :isbn", {"isbn": isbn}).fetchall()
-    nr = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "C2cWspF6M9QNh6rK7I0Dw", "isbns": isbn}).json()["books"][0]["work_ratings_count"]
-    ar = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "C2cWspF6M9QNh6rK7I0Dw", "isbns": isbn}).json()["books"][0]["average_rating"]
-    print(nr, ar)
-    return render_template("book.html", is_auth=session.get('logged_in'), results=book, reviews=reviews)
+    session['nr'] = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "C2cWspF6M9QNh6rK7I0Dw", "isbns": isbn}).json()["books"][0]["work_ratings_count"]
+    session['ar'] = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "C2cWspF6M9QNh6rK7I0Dw", "isbns": isbn}).json()["books"][0]["average_rating"]
+    return render_template("book.html", is_auth=session.get('logged_in'), results=book, reviews=reviews, nr=session['nr'], ar=session['ar'])
 
 @app.route('/rate')
 def rate():
@@ -119,7 +118,7 @@ def rate():
         url = f"/book/{isbn}"
         reviews = db.execute("SELECT reviews.rating, reviews.review, users.display_name FROM reviews JOIN users ON reviews.id_user=users.id WHERE isbn = :isbn", {"isbn": isbn}).fetchall()
         book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
-        return render_template("book.html", is_auth=session.get('logged_in'), message=message, results=book, reviews=reviews)
+        return render_template("book.html", is_auth=session.get('logged_in'), message=message, results=book, reviews=reviews, nr=session['nr'], ar=session['ar'])
     else:
         return render_template("rate.html")
 
