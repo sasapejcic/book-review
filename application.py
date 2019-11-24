@@ -5,6 +5,8 @@ from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
+import requests
+
 app = Flask(__name__)
 
 # Check for environment variable
@@ -101,8 +103,10 @@ def book(isbn):
     # Setting session variable
     session['isbn'] = isbn
     # Get all reviews.
-    #reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": isbn}).fetchall()
     reviews = db.execute("SELECT reviews.rating, reviews.review, users.display_name FROM reviews JOIN users ON reviews.id_user=users.id WHERE isbn = :isbn", {"isbn": isbn}).fetchall()
+    nr = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "C2cWspF6M9QNh6rK7I0Dw", "isbns": isbn}).json()["books"][0]["work_ratings_count"]
+    ar = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "C2cWspF6M9QNh6rK7I0Dw", "isbns": isbn}).json()["books"][0]["average_rating"]
+    print(nr, ar)
     return render_template("book.html", is_auth=session.get('logged_in'), results=book, reviews=reviews)
 
 @app.route('/rate')
@@ -113,7 +117,7 @@ def rate():
     if query:
         message = "You already rated this book"
         url = f"/book/{isbn}"
-        reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": isbn}).fetchall()
+        reviews = db.execute("SELECT reviews.rating, reviews.review, users.display_name FROM reviews JOIN users ON reviews.id_user=users.id WHERE isbn = :isbn", {"isbn": isbn}).fetchall()
         book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
         return render_template("book.html", is_auth=session.get('logged_in'), message=message, results=book, reviews=reviews)
     else:
@@ -131,12 +135,3 @@ def rate_submit():
     db.commit()
     url = f"/book/{isbn}"
     return redirect(url)
-    #query = db.execute(f"SELECT display_name FROM users WHERE username='{username}';").fetchone()
-#     if query:
-#         message='Username already taken!'
-#         return render_template("register.html", message='Username already exists! Please choose different one')
-#     else:
-#         query = db.execute(f"INSERT INTO users (username, password, display_name) VALUES ('{username}', '{password}', '{display_name}')")
-#         db.commit()
-#         message='Thanks for registering! Please Log in'
-#         return render_template("index.html", message='Thanks for registering! Please Log in', is_auth=False)
