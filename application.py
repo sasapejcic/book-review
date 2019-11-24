@@ -101,7 +101,8 @@ def book(isbn):
     # Setting session variable
     session['isbn'] = isbn
     # Get all reviews.
-    reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": isbn}).fetchall()
+    #reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": isbn}).fetchall()
+    reviews = db.execute("SELECT reviews.rating, reviews.review, users.display_name FROM reviews JOIN users ON reviews.id_user=users.id WHERE isbn = :isbn", {"isbn": isbn}).fetchall()
     return render_template("book.html", is_auth=session.get('logged_in'), results=book, reviews=reviews)
 
 @app.route('/rate')
