@@ -21,6 +21,11 @@ body {
   width: 150px;
 }
 
+#site_title {
+  font-size: 40px;
+  font-style: oblique;
+}
+
 nav {
   vertical-align: middle;
   float: right;
@@ -360,10 +365,6 @@ input[type=username]:placeholder, input[type=password]:placeholder {
   outline: 0;
 }
 
-textarea {
-  align: center;
-}
-
 /*results styling start here*/
 .hdg {
   margin-top: 40px;
@@ -447,6 +448,18 @@ h1 {
 .rating > label:hover ~ input:checked ~ label,
 .rating > input:checked ~ label:hover ~ label {
   color: #FFED85;
+}
+
+/* Review styling starts here */
+.review {
+  margin-top: 40px;
+}
+.review h4 {
+  color: #be9b7b;
+  font-style: italic;
+  font-size: 16px;
+  border-bottom: 1px solid #3c2f2f;
+  margin-bottom: 16px;
 }
 
 /*# sourceMappingURL=styles.css.map */

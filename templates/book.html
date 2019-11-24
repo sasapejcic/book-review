@@ -23,7 +23,7 @@
 <div class="review">
   {% for r in reviews %}
   <p>{{ r.display_name}} gave this book {{ r.rating}} star(s).</p>
-  <p>{{ r.review }}</p>
+  <h4>"{{ r.review }}"</h4>
   {% endfor %}
 </div>
 
