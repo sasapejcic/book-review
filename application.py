@@ -1,11 +1,13 @@
 import os
 
-from flask import Flask, session, render_template, request, flash, redirect
+from flask import Flask, session, render_template, request, flash, redirect, abort
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 import requests
+
+import json
 
 app = Flask(__name__)
 
@@ -134,3 +136,22 @@ def rate_submit():
     db.commit()
     url = f"/book/{isbn}"
     return redirect(url)
+
+@app.route("/api/<isbn>")
+def api(isbn):
+    # Make sure book exists.
+    book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
+    if book is None:
+        abort(404, description="Book not found")
+    else:
+        response = {}
+        response["title"] = book.title
+        response["author"] = book.author
+        response["year"] = book.year
+        response["isbn"] = book.isbn
+        reviews = db.execute("SELECT COUNT(*), AVG(rating) FROM reviews WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
+        print(reviews)
+        response["review_count"] = reviews[0]
+        response["average_score"] = float(str(round(reviews[1], 1)))
+        print(response)
+        return json.dumps(response)
