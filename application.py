@@ -64,7 +64,7 @@ def register():
     if not session.get('logged_in'):
         return render_template("/register.html")
     else:
-        return redirect('/register_check')
+        return redirect('/')
 
 @app.route('/register_check', methods=['POST'])
 def register_check():
@@ -154,3 +154,13 @@ def api(isbn):
         response["average_score"] = float(str(round(reviews[1], 1)))
         print(response)
         return json.dumps(response)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('error.html', message="Nice try joker!"), 404
+
+@app.errorhandler(405)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('error.html', message="Something is not right here!"), 405
