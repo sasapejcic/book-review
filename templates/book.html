@@ -2,20 +2,27 @@
 
 {% block results %}
 {% if is_auth %}
+
 <div class="book">
   <h1>{{ results.title}}</h1>
   <h2>by {{ results.author }}</h2>
   <h4>ISBN {{ results.isbn }}, year {{ results.year}} </h4>
 </div>
+
 <div class="row align-items-center">
   <div class="col-sm">
+    {% if not message %}
     <a class="btn btn-primary btn-custom" href="/rate" role="button">Write a review</a>
+    {% else %}
+    <div>{{ message }}</div>
+    {% endif %}
     <a class="btn btn-primary btn-custom" href="/" role="button">Go back to search</a>
   </div>
 </div>
-<div>{{ message }}</div>
+
 <div class="review">
   {{ reviews }}
 </div>
+
 {% endif %}
 {% endblock %}

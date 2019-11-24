@@ -112,8 +112,9 @@ def rate():
     if query:
         message = "You already rated this book"
         url = f"/book/{isbn}"
-        #return redirect(url)
-        return render_template("book.html", is_auth=session.get('logged_in'), message=message)
+        reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": isbn}).fetchall()
+        book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
+        return render_template("book.html", is_auth=session.get('logged_in'), message=message, results=book, reviews=reviews)
     else:
         return render_template("rate.html")
 
